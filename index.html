@@ -32,7 +32,7 @@
   <!-- BARRA DE URGÊNCIA -->
   <div id="barra-urgencia">
     <p>
-      🔥 <strong>OFERTA DE LANÇAMENTO</strong> — 5 apostilas por apenas <strong>$9,90</strong>
+      🔥 <strong>OFERTA DE LANÇAMENTO</strong> — 5 apostilas por apenas <strong id="p-announcement">$9,90</strong>
        ·  Encerra em: <span id="countdown-bar" class="countdown-inline">23:59:59</span>
     </p>
   </div>
@@ -444,10 +444,10 @@
           </div>
           <p class="preco-destaque-sub">Cada apostila valeria <strong>$19,40</strong> separada.<br>Você leva o kit completo por apenas:</p>
 
-          <p class="valor-original">Valor total: <s>$97,00</s></p>
+          <p class="valor-original" id="p-old">Valor total: <s>$97,00</s></p>
           <p class="preco-label">Hoje apenas:</p>
-          <div class="preco-grande"><span class="preco-cifrao">$</span>9,90</div>
-          <p class="preco-parcelado">Pagamento único</p>
+          <div class="preco-grande" id="p-new"><span class="preco-cifrao">$</span>9,90</div>
+          <p class="preco-parcelado" id="p-install">Pagamento único</p>
           <p class="economia-tag">💰 Você economiza $87,10!</p>
 
           <!-- Barra de vagas -->
@@ -462,7 +462,7 @@
             <p class="vagas-aviso">⚠️ Restam poucas vagas neste preço</p>
           </div>
 
-          <a href="https://pay.hotmart.com/Y103510888H?off=31ikrt81" class="btn-cta-principal btn-comprar" target="_blank" rel="noopener">Comprar agora</a>
+          <a href="https://pay.hotmart.com/Y103510888H?off=31ikrt81" class="btn-cta-principal btn-comprar" target="_blank" rel="noopener" id="btn-comprar">Comprar agora — $9,90</a>
 
           <p class="microcopy-pago">🔒 Pagamento 100% seguro · Cartão, Boleto ou PIX · Acesso imediato</p>
 
@@ -580,7 +580,7 @@
           <div class="cta-timer" id="cta-timer-display">15 : 00</div>
         </div>
 
-        <a href="https://pay.hotmart.com/Y103510888H?off=31ikrt81" class="btn-cta-final" target="_blank" rel="noopener">Comprar agora — $9,90</a>
+        <a href="https://pay.hotmart.com/Y103510888H?off=31ikrt81" class="btn-cta-final" target="_blank" rel="noopener" id="btn-cta-final">Comprar agora — $9,90</a>
         <p class="microcopy-final">🛡️ Garantia 7 dias · 🔒 Pagamento seguro · ⚡ Acesso imediato</p>
       </div>
 
@@ -613,23 +613,7 @@
   </section>
 
 
-  <!-- ═══════════════════════════════════════════
-       WHATSAPP
-  ═══════════════════════════════════════════ -->
-  <section id="whatsapp-section">
-    <div class="container container--narrow wa-wrap reveal">
-      <div class="wa-icone">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="28" height="28" aria-hidden="true">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
-        </svg>
-      </div>
-      <h3 class="wa-titulo">Ficou com alguma dúvida?</h3>
-      <p class="wa-desc">Estou aqui para te ajudar. Manda uma mensagem no WhatsApp e te respondo pessoalmente.</p>
-      <a href="https://wa.me/5511912030993?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Kit%20de%20Amigurumi%20Pedag%C3%B3gico." class="btn-wa" target="_blank" rel="noopener">
-        Falar no WhatsApp
-      </a>
-    </div>
-  </section>
+
 
 
   <!-- FOOTER -->
@@ -652,5 +636,90 @@
   <div id="toast-prova" class="toast-prova" aria-live="polite"></div>
 
 
+
+  <script>
+      function renderPrices(rate, code, symbol) {
+        var precio = 97.00;
+        var precioDescuento = 9.90;
+        
+        var oldFormatted = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(rate * precio);
+        var newFormatted = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(rate * precioDescuento);
+        
+        var pAnnouncement = document.querySelector("#p-announcement");
+        if (pAnnouncement) pAnnouncement.innerHTML = symbol + newFormatted + " " + code;
+        
+        var pOld = document.querySelector("#p-old");
+        if (pOld) pOld.innerHTML = "Valor total: <s>" + symbol + oldFormatted + " " + code + "</s>";
+        
+        var pNew = document.querySelector("#p-new");
+        if (pNew) pNew.innerHTML = "<span class=\"preco-cifrao\">" + symbol + "</span>" + newFormatted;
+        
+        var pInstall = document.querySelector("#p-install");
+        if (pInstall) pInstall.innerHTML = code + " · Pagamento único";
+        
+        var btnComprar = document.querySelector("#btn-comprar");
+        if (btnComprar) btnComprar.innerHTML = "Comprar agora — " + symbol + newFormatted + " " + code;
+        
+        var btnCtaFinal = document.querySelector("#btn-cta-final");
+        if (btnCtaFinal) btnCtaFinal.innerHTML = "Comprar agora — " + symbol + newFormatted + " " + code;
+        
+        var notice = document.createElement("p");
+        notice.style = "font-size:12px; color:#666; text-align:center; margin-top:10px;";
+        notice.innerText = "Alguns países podem ter taxas adicionais de impostos.";
+        var pricingSection = document.querySelector(".preco-box");
+        if(pricingSection && !document.querySelector("#tax-notice")){
+            notice.id = "tax-notice";
+            pricingSection.parentElement.appendChild(notice);
+        }
+      }
+
+      var countryCurrencyMap = {
+        "BR": { code: "BRL", symbol: "R$" },
+        "MX": { code: "MXN", symbol: "$" },
+        "CO": { code: "COP", symbol: "$" },
+        "AR": { code: "ARS", symbol: "$" },
+        "CL": { code: "CLP", symbol: "$" },
+        "PE": { code: "PEN", symbol: "S/" },
+        "UY": { code: "UYU", symbol: "$U" },
+        "PY": { code: "PYG", symbol: "₲" },
+        "BO": { code: "BOB", symbol: "Bs" },
+        "EC": { code: "USD", symbol: "$" },
+        "VE": { code: "VES", symbol: "Bs" },
+        "ES": { code: "EUR", symbol: "€" },
+        "US": { code: "USD", symbol: "US$" },
+        "PT": { code: "EUR", symbol: "€" },
+        "AO": { code: "AOA", symbol: "Kz" },
+        "MZ": { code: "MZN", symbol: "MT" },
+        "GW": { code: "XOF", symbol: "CFA" },
+        "CV": { code: "CVE", symbol: "$" },
+        "ST": { code: "STN", symbol: "Db" }
+      };
+
+      fetch("https://1.1.1.1/cdn-cgi/trace")
+        .then(function(res) { return res.text(); })
+        .then(function(text) {
+          var match = text.match(/loc=([A-Z]{2})/);
+          var countryCode = match ? match[1] : "US";
+          var cInfo = countryCurrencyMap[countryCode];
+          if (!cInfo) cInfo = { code: "USD", symbol: "US$" };
+
+          if (cInfo.code === "USD") {
+              renderPrices(1, "USD", "US$");
+          } else {
+              fetch("https://open.er-api.com/v6/latest/USD")
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var rate = data.rates[cInfo.code] || 1;
+                    renderPrices(rate, cInfo.code, cInfo.symbol);
+                })
+                .catch(function() {
+                    renderPrices(1, "USD", "US$");
+                });
+          }
+        })
+        .catch(function() {
+          renderPrices(1, "USD", "US$");
+        });
+  </script>
 
 </body></html>
