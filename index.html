@@ -5,7 +5,7 @@
   <title>Kit 5 Apostilas de Amigurumi — +50 Receitas Pedagógicas</title>
 
   <!-- Preload LCP image -->
-  <link rel="preload" href="images/mockup_4_apostilas_hrxpqf.webp" as="image" type="image/webp">
+  <link rel="preload" href="images/mockup_4_apostilas_hrxpqf.webp" as="image" type="image/webp" fetchpriority="high">
 
   <!-- Preconnect to font origins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,10 +13,11 @@
 
   <!-- Critical CSS inlined for instant first paint -->
   <style>
+    @font-face{font-family:'Poppins Fallback';src:local('Arial');size-adjust:112%;ascent-override:92%;descent-override:22%;line-gap-override:0%}
     *,*:before,*:after{box-sizing:border-box;margin:0;padding:0}
     :root{--azul:#89CFF0;--azul-medio:#5BB3D4;--azul-escuro:#3A90AF;--azul-bg:#EFF8FF;--azul-borda:#C5E8F7;--rosa:#FFB6C1;--rosa-medio:#FF85A1;--rosa-escuro:#E05A7A;--rosa-bg:#FFF5F8;--rosa-borda:#FFD6E7;--branco:#FFFFFF;--cinza-bg:#F8FAFC;--texto:#2D3748;--texto-suave:#718096;--borda:#E2E8F0;--sombra:0 4px 20px rgba(89,179,212,.14);--sombra-forte:0 8px 32px rgba(89,179,212,.22);--sombra-rosa:0 4px 20px rgba(255,133,161,.16);--radius:18px;--radius-sm:10px;--transition:.3s ease}
     html{scroll-behavior:smooth}
-    body{font-family:Poppins,system-ui,-apple-system,sans-serif;color:var(--texto);background:var(--branco);line-height:1.7;font-size:16px}
+    body{font-family:Poppins,'Poppins Fallback',system-ui,-apple-system,sans-serif;color:var(--texto);background:var(--branco);line-height:1.7;font-size:16px}
     img{max-width:100%;height:auto;display:block}
     a{text-decoration:none;color:inherit}
     ul{list-style:none}
@@ -64,6 +65,24 @@
   <!-- Load Google Fonts asynchronously (non-render-blocking) -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"></noscript>
+
+  <!-- UTMify Pixel -->
+  <script>
+    window.pixelId = "69b2d543709513ce82c22b79";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+    document.head.appendChild(a);
+  </script>
+  <!-- UTMify Latest -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
 
   <!-- Main JS deferred -->
   <script type="module" crossorigin="" src="js/main-TQUZ6wPa.js"></script>
@@ -761,22 +780,7 @@
         });
   </script>
 
-  <!-- Third-party scripts loaded after all content (non-blocking) -->
-  <script>
-    window.pixelId = "69b2d543709513ce82c22b79";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-    document.head.appendChild(a);
-  </script>
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
+  <!-- Microsoft Clarity (deferred to bottom) -->
   <script>
       (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
