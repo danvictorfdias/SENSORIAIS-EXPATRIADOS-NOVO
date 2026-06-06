@@ -696,31 +696,25 @@
 
 
   <script>
+    // Defer currency conversion to after page load so fetch() doesn't compete with LCP
+    window.addEventListener('load', function() {
       function renderPrices(rate, code, symbol) {
         var precio = 97.00;
         var precioDescuento = 9.90;
-        
         var oldFormatted = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(rate * precio);
         var newFormatted = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(rate * precioDescuento);
-        
         var pAnnouncement = document.querySelector("#p-announcement");
         if (pAnnouncement) pAnnouncement.innerHTML = symbol + newFormatted + " " + code;
-        
         var pOld = document.querySelector("#p-old");
         if (pOld) pOld.innerHTML = "Valor total: <s>" + symbol + oldFormatted + " " + code + "</s>";
-        
         var pNew = document.querySelector("#p-new");
         if (pNew) pNew.innerHTML = "<span class=\"preco-cifrao\">" + symbol + "</span>" + newFormatted;
-        
         var pInstall = document.querySelector("#p-install");
         if (pInstall) pInstall.innerHTML = code + " · Pagamento único";
-        
         var btnComprar = document.querySelector("#btn-comprar");
         if (btnComprar) btnComprar.innerHTML = "Comprar agora — " + symbol + newFormatted + " " + code;
-        
         var btnCtaFinal = document.querySelector("#btn-cta-final");
         if (btnCtaFinal) btnCtaFinal.innerHTML = "Comprar agora — " + symbol + newFormatted + " " + code;
-        
         var notice = document.createElement("p");
         notice.style = "font-size:12px; color:#666; text-align:center; margin-top:10px;";
         notice.innerText = "Alguns países podem ter taxas adicionais de impostos.";
@@ -730,63 +724,41 @@
             pricingSection.parentElement.appendChild(notice);
         }
       }
-
       var countryCurrencyMap = {
-        "BR": { code: "BRL", symbol: "R$" },
-        "MX": { code: "MXN", symbol: "$" },
-        "CO": { code: "COP", symbol: "$" },
-        "AR": { code: "ARS", symbol: "$" },
-        "CL": { code: "CLP", symbol: "$" },
-        "PE": { code: "PEN", symbol: "S/" },
-        "UY": { code: "UYU", symbol: "$U" },
-        "PY": { code: "PYG", symbol: "₲" },
-        "BO": { code: "BOB", symbol: "Bs" },
-        "EC": { code: "USD", symbol: "$" },
-        "VE": { code: "VES", symbol: "Bs" },
-        "ES": { code: "EUR", symbol: "€" },
-        "US": { code: "USD", symbol: "US$" },
-        "PT": { code: "EUR", symbol: "€" },
-        "AO": { code: "AOA", symbol: "Kz" },
-        "MZ": { code: "MZN", symbol: "MT" },
-        "GW": { code: "XOF", symbol: "CFA" },
-        "CV": { code: "CVE", symbol: "$" },
-        "ST": { code: "STN", symbol: "Db" }
+        "BR":{code:"BRL",symbol:"R$"},"MX":{code:"MXN",symbol:"$"},"CO":{code:"COP",symbol:"$"},
+        "AR":{code:"ARS",symbol:"$"},"CL":{code:"CLP",symbol:"$"},"PE":{code:"PEN",symbol:"S/"},
+        "UY":{code:"UYU",symbol:"$U"},"PY":{code:"PYG",symbol:"₲"},"BO":{code:"BOB",symbol:"Bs"},
+        "EC":{code:"USD",symbol:"$"},"VE":{code:"VES",symbol:"Bs"},"ES":{code:"EUR",symbol:"€"},
+        "US":{code:"USD",symbol:"US$"},"PT":{code:"EUR",symbol:"€"},"AO":{code:"AOA",symbol:"Kz"},
+        "MZ":{code:"MZN",symbol:"MT"},"GW":{code:"XOF",symbol:"CFA"},"CV":{code:"CVE",symbol:"$"},
+        "ST":{code:"STN",symbol:"Db"}
       };
-
       fetch("https://1.1.1.1/cdn-cgi/trace")
-        .then(function(res) { return res.text(); })
-        .then(function(text) {
-          var match = text.match(/loc=([A-Z]{2})/);
-          var countryCode = match ? match[1] : "US";
-          var cInfo = countryCurrencyMap[countryCode];
-          if (!cInfo) cInfo = { code: "USD", symbol: "US$" };
-
-          if (cInfo.code === "USD") {
-              renderPrices(1, "USD", "US$");
-          } else {
-              fetch("https://open.er-api.com/v6/latest/USD")
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    var rate = data.rates[cInfo.code] || 1;
-                    renderPrices(rate, cInfo.code, cInfo.symbol);
-                })
-                .catch(function() {
-                    renderPrices(1, "USD", "US$");
-                });
+        .then(function(res){return res.text()})
+        .then(function(text){
+          var match=text.match(/loc=([A-Z]{2})/);var countryCode=match?match[1]:"US";
+          var cInfo=countryCurrencyMap[countryCode];if(!cInfo)cInfo={code:"USD",symbol:"US$"};
+          if(cInfo.code==="USD"){renderPrices(1,"USD","US$")}else{
+            fetch("https://open.er-api.com/v6/latest/USD")
+              .then(function(r){return r.json()})
+              .then(function(data){renderPrices(data.rates[cInfo.code]||1,cInfo.code,cInfo.symbol)})
+              .catch(function(){renderPrices(1,"USD","US$")})
           }
-        })
-        .catch(function() {
-          renderPrices(1, "USD", "US$");
-        });
+        }).catch(function(){renderPrices(1,"USD","US$")});
+    });
   </script>
 
-  <!-- Microsoft Clarity (deferred to bottom) -->
+  <!-- Microsoft Clarity (deferred to after page load) -->
   <script>
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "wmp86ytfzb");
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "wmp86ytfzb");
+      }, 2000);
+    });
   </script>
 
 </body></html>
